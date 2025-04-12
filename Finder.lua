@@ -342,6 +342,7 @@ function BAF.DailyInfo(Control, Type)
       String = RewardType[6].."\r\n\r\n"..BAFLang_SI.BUTTON_BG_Tooltip
     end
   end
+  --Skuly addition start
   if Type == 4 then
       String = "Role:Tank"
   end
@@ -351,6 +352,7 @@ function BAF.DailyInfo(Control, Type)
   if Type == 6 then
       String = "Role:Damage"
   end
+  --Skuly addition end
   SetTooltipText(InformationTooltip, String)
 end
 

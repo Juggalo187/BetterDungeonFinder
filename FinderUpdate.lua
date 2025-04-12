@@ -27,14 +27,14 @@ function BAF.D2C(Control, List)
   --Title
   Title:SetText(List["Name"])
 --if List["IsTodayU"] then Title:SetColor(0.255, 0.412, 1) else Title:SetColor(1, 1, 1) end
-  local isInDungeon = IsUnitInDungeon("player")
+  local isInDungeon = IsUnitInDungeon("player") --Skuly addition start
   local ZoneName = ZO_CachedStrFormat("<<C:1>>", GetZoneNameByIndex(GetCurrentMapZoneIndex()))
   if List["IsTodayU"] and List["Name"] ~= ZoneName then
 	Title:SetColor(0.255, 0.412, 1)
   elseif isInDungeon and List["Name"] == ZoneName then
 	Title:SetColor(0.878, 0.698, 0.039)
   else Title:SetColor(1, 1, 1) 
-  end
+  end --Skuly addition end
   Title:ClearAnchors()
   if BAF.savedVariables.Window_Left then
     Title:SetAnchor(BOTTOMLEFT, Control, CENTER, -66 + BAF.savedVariables.Window_LeftV, 14)
