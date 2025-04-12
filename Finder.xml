@@ -100,8 +100,8 @@
             normal="/esoui/art/lfg/lfg_tank_up_64.dds" 
             pressed="/esoui/art/lfg/lfg_tank_down_64.dds"
             mouseOver="/esoui/art/lfg/lfg_tank_over_64.dds"/>
-		  <OnMouseEnter> BetterDungonFinder.DailyInfo(self, 4) </OnMouseEnter>
-          <OnMouseExit> ClearTooltip(InformationTooltip) </OnMouseExit>
+		  <OnMouseEnter> BetterDungonFinder.DailyInfo(self, 4) </OnMouseEnter> <!-- skuly addition -->
+          <OnMouseExit> ClearTooltip(InformationTooltip) </OnMouseExit> <!-- skuly addition -->
           <OnClicked> BetterDungonFinder.RoleChange(2) </OnClicked>
         </Button>
         <Button name="BAFRole_H" clickSound="Click">
@@ -111,8 +111,8 @@
             normal="/esoui/art/lfg/lfg_healer_up_64.dds" 
             pressed="/esoui/art/lfg/lfg_healer_down_64.dds"
             mouseOver="/esoui/art/lfg/lfg_healer_over_64.dds"/>
-			<OnMouseEnter> BetterDungonFinder.DailyInfo(self, 5) </OnMouseEnter>
-			<OnMouseExit> ClearTooltip(InformationTooltip) </OnMouseExit>
+			<OnMouseEnter> BetterDungonFinder.DailyInfo(self, 5) </OnMouseEnter> <!-- skuly addition -->
+			<OnMouseExit> ClearTooltip(InformationTooltip) </OnMouseExit> <!-- skuly addition -->
           <OnClicked> BetterDungonFinder.RoleChange(4) </OnClicked>
         </Button>
         <Button name="BAFRole_D" clickSound="Click">
@@ -122,8 +122,8 @@
             normal="/esoui/art/lfg/lfg_dps_up_64.dds" 
             pressed="/esoui/art/lfg/lfg_dps_down_64.dds"
             mouseOver="/esoui/art/lfg/lfg_dps_over_64.dds"/>
-			<OnMouseEnter> BetterDungonFinder.DailyInfo(self, 6) </OnMouseEnter>
-			<OnMouseExit> ClearTooltip(InformationTooltip) </OnMouseExit>
+			<OnMouseEnter> BetterDungonFinder.DailyInfo(self, 6) </OnMouseEnter> <!-- skuly addition -->
+			<OnMouseExit> ClearTooltip(InformationTooltip) </OnMouseExit> <!-- skuly addition -->
           <OnClicked> BetterDungonFinder.RoleChange(1) </OnClicked>
         </Button>
 		
