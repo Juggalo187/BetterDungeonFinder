@@ -4,7 +4,7 @@
 ## APIVersion: 101044 101045
 ## AddOnVersion: 171
 ## Version: 1.71
-## DependsOn: LibAddonMenu-2.0 LibSets
+## DependsOn: LibAddonMenu-2.0>=38 LibSets>=000708
 ## OptionalDependsOn: LibGroupBroadcast OdySupportIcons
 ## SavedVariables: BetterActivityFinder_Vars
 
