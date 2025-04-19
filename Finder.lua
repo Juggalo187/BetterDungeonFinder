@@ -98,10 +98,27 @@ function BAF.SquareButton(control, key)
   end
 end
 
+-- Skuly addition
+function BAF.LeaveGroup()
+if not IsUnitGrouped("player") then d("You are NOT in a group.") return end
+	BAFWindow_LeaveGroup:SetHidden(true)
+	GroupLeave()
+end
+
+function BAF.LeaveDungeon()
+local isInDungeon = IsUnitInDungeon("player")
+if not isInDungeon then d("You are not in an Instance.") return end
+if IsUnitGrouped("player") then d("You must leave group first.") return end
+	BAFWindow_LeaveDungeon:SetHidden(true)
+	ExitInstanceImmediately()
+end
+-- Skuly addition end
+
 --Change the text of queue button/Auto confirm/BG Sound
 local CallId = nil
 function BAF.QueueStatus()
   local QState = GetActivityFinderStatus()
+  local isInDungeon = IsUnitInDungeon("player")
   -- Ready check
   if QState == 4 then
     BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Ready)
@@ -149,10 +166,49 @@ function BAF.QueueStatus()
     CallId = nil
   end
   -- Queuing
-  if QState == 1 then BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Cancel) return end 
+
+  -- Skuly Adition
+  if QState == 1 then
+  EVENT_MANAGER:RegisterForUpdate("BAFUpdateTimer", 1000,
+		function()
+			local SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT = "<<1>>In Queue (<<X:2>>|cffffff<<3>>)|r"
+			local searchStartTimeMs, searchEstimatedCompletionTimeMs = GetLFGSearchTimes()
+			local timeSinceSearchStartMs = GetFrameTimeMilliseconds() - searchStartTimeMs
+			local textStartTime = ZO_FormatTimeMilliseconds(timeSinceSearchStartMs, 0, 3)
+			local Status = GetActivityFinderStatus()
+			if Status == 1 then
+					BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Cancel)
+					BAFWindow_QueueTimer:SetText(zo_strformat(SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT, "", "", textStartTime))
+					BAFWindow_QueueTimer:SetHidden(false)
+					BAFWindow_LeaveGroup:SetHidden(true)
+					BAFWindow_LeaveDungeon:SetHidden(true)
+				else
+					BAFWindow_QueueTimer:SetHidden(true)
+					BAFWindow_LeaveGroup:SetHidden(true)
+					BAFWindow_LeaveDungeon:SetHidden(true)
+					EVENT_MANAGER:UnregisterForUpdate("BAFUpdateTimer")
+			end
+		end
+		)
+	end
+	
+if QState == 3 and IsUnitGrouped("player") then
+	BAFWindow_LeaveGroup:SetHidden(false) 
+	return 
+  end 
+  if QState == 0 and not IsUnitGrouped("player") and isInDungeon then
+	BAFWindow_LeaveDungeon:SetHidden(false)
+	return 
+  end
+	-- Skuly Adition End
+	
   -- In progress
   if QState == 2 then BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Fight) return end 
   BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Queue) -- Other State（OK for queue）
+  
+  BAFWindow_LeaveGroup:SetHidden(true)
+  BAFWindow_LeaveDungeon:SetHidden(true)
+  BAFWindow_QueueTimer:SetHidden(true)
 end
 
 --Save List of Dungeons with Dialog

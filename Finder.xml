@@ -57,6 +57,21 @@
           "|t25:25:esoui/art/currency/gamepad/gp_crowns_mipmap.dds|t"..BAFLang_SI.Caption_TR)</OnInitialized>
         </Label>
         
+		<!-- Skuly Addition -->
+		<Label name="BAFWindow_QueueTimer" font="BAFWinH4" inheritAlpha="true" color="FFFFFF" text="Not In Que" hidden="true">
+          <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="608" offsetY="240"/>
+        </Label>
+		<Button name ="BAFWindow_LeaveGroup" inherits ="ZO_DefaultButton" fon="BAFWinH3" hidden="true">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="CENTER" offsetX="540" offsetY="220"/>
+          <OnInitialized>self:SetText("Leave Group")</OnInitialized>
+          <OnClicked> BetterDungonFinder.LeaveGroup() </OnClicked>
+        </Button>
+		<Button name ="BAFWindow_LeaveDungeon" inherits ="ZO_DefaultButton" fon="BAFWinH3" hidden="true">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="CENTER" offsetX="540" offsetY="220"/>
+          <OnInitialized>self:SetText("Leave Instance")</OnInitialized>
+          <OnClicked> BetterDungonFinder.LeaveDungeon() </OnClicked>
+        </Button>
+		<!-- Skuly Addition End -->
         <Button name="BAFRan_N" clickSound="Click">
           <Anchor point="CENTER" relativeTo="$(parent)" relativePoint="CENTER" offsetX="547" offsetY="280"/>
           <Dimensions x="50" y="50"/>
