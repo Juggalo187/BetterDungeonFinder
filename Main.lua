@@ -8,6 +8,12 @@ BAF.XML_Default = {
   Window_rPoint = 128,
   Window_OffsetX = 0,
   Window_OffsetY = 0,
+
+  Window_Point2 = 128,
+  Window_rPoint2 = 128,
+  Window_OffsetX2 = 0,
+  Window_OffsetY2 = 0,
+
   Window_Lock = false,
   Window_Left = false,
   Window_LeftV = 0,
@@ -219,6 +225,16 @@ function BAF.ControlsInitial()
     BAF.savedVariables.Button_OffsetX,
     BAF.savedVariables.Button_OffsetY
   )
+  BAFTopLevel2:ClearAnchors()
+  BAFTopLevel2:SetAnchor (
+    BAF.savedVariables.Window_Point2,
+    GuiRoot,
+    BAF.savedVariables.Window_rPoint2,
+    BAF.savedVariables.Window_OffsetX2,
+    BAF.savedVariables.Window_OffsetY2
+  )
+	BAFTopLevel2:SetHidden(true)
+  
   --Reset the status of controls
   BAFTopLevel:SetHidden(true)
   BAFTriggle_Button:SetHidden(BAF.savedVariables.Button_Hide)

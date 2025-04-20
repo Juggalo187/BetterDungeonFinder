@@ -32,6 +32,15 @@ function BAF.WindowPosition()
   _, BAF.savedVariables.Button_Point, _, BAF.savedVariables.Button_rPoint, BAF.savedVariables.Button_OffsetX, BAF.savedVariables.Button_OffsetY = BAFTriggle_Button:GetAnchor()
 end
 
+function BAF.WindowPosition2()
+  -- GetAnchor() 
+  -- boolean isValidAnchor, number point, object relativeTo, number relativePoint, 
+  -- number offsetX, number offsetY, number AnchorConstrains anchorConstrains
+  local _
+  _, BAF.savedVariables.Window_Point2, _, BAF.savedVariables.Window_rPoint2, BAF.savedVariables.Window_OffsetX2, BAF.savedVariables.Window_OffsetY2 = BAFTopLevel2:GetAnchor()
+end
+
+
 --Open or close the mainwindow, and triggle controls update
 function BAF.ShowWindow()
   --Update dungeon and windows info
@@ -39,6 +48,12 @@ function BAF.ShowWindow()
   BAF.WindowUpdate()
   --Show window
   SCENE_MANAGER:ToggleTopLevel(BAFTopLevel)
+end
+
+function BAF.WindowHide()
+  if( not BAFTopLevel2:IsControlHidden()) then
+        BAFTopLevel2:SetHidden(true)
+    end
 end
 
 --Try to change the role in LFG
@@ -98,21 +113,29 @@ function BAF.SquareButton(control, key)
   end
 end
 
--- Skuly addition
 function BAF.LeaveGroup()
-if not IsUnitGrouped("player") then d("You are NOT in a group.") return end
-	BAFWindow_LeaveGroup:SetHidden(true)
 	GroupLeave()
+	BAFTopLevel2:SetHidden(true)
 end
 
-function BAF.LeaveDungeon()
+function BAF.StatusCheck()
 local isInDungeon = IsUnitInDungeon("player")
-if not isInDungeon then d("You are not in an Instance.") return end
-if IsUnitGrouped("player") then d("You must leave group first.") return end
-	BAFWindow_LeaveDungeon:SetHidden(true)
-	ExitInstanceImmediately()
+local Status = GetActivityFinderStatus()
+	EVENT_MANAGER:RegisterForUpdate("StatusChecker", 1000,
+		function()
+			local Status = GetActivityFinderStatus()
+			if Status == 3 then
+				if not BAFTopLevel2:IsControlHidden() then
+					if IsUnitGrouped("player") and isInDungeon then
+						BAFWindow_LeaveGroup:SetHidden(false)
+					end
+				end
+			else
+					EVENT_MANAGER:UnregisterForUpdate("StatusChecker")
+			end
+		end
+		)
 end
--- Skuly addition end
 
 --Change the text of queue button/Auto confirm/BG Sound
 local CallId = nil
@@ -167,7 +190,6 @@ function BAF.QueueStatus()
   end
   -- Queuing
 
-  -- Skuly Adition
   if QState == 1 then
   EVENT_MANAGER:RegisterForUpdate("BAFUpdateTimer", 1000,
 		function()
@@ -180,34 +202,25 @@ function BAF.QueueStatus()
 					BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Cancel)
 					BAFWindow_QueueTimer:SetText(zo_strformat(SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT, "", "", textStartTime))
 					BAFWindow_QueueTimer:SetHidden(false)
-					BAFWindow_LeaveGroup:SetHidden(true)
-					BAFWindow_LeaveDungeon:SetHidden(true)
 				else
 					BAFWindow_QueueTimer:SetHidden(true)
-					BAFWindow_LeaveGroup:SetHidden(true)
-					BAFWindow_LeaveDungeon:SetHidden(true)
 					EVENT_MANAGER:UnregisterForUpdate("BAFUpdateTimer")
 			end
 		end
 		)
 	end
-	
-if QState == 3 and IsUnitGrouped("player") then
-	BAFWindow_LeaveGroup:SetHidden(false) 
-	return 
-  end 
-  if QState == 0 and not IsUnitGrouped("player") and isInDungeon then
-	BAFWindow_LeaveDungeon:SetHidden(false)
-	return 
-  end
-	-- Skuly Adition End
-	
+	-- ended and still in group
+	if QState == 3 then
+		BAFTopLevel2:SetHidden(false)
+		BAF.StatusCheck()
+		return 
+	end 
+
   -- In progress
   if QState == 2 then BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Fight) return end 
   BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Queue) -- Other State（OK for queue）
   
-  BAFWindow_LeaveGroup:SetHidden(true)
-  BAFWindow_LeaveDungeon:SetHidden(true)
+  BAFTopLevel2:SetHidden(true)
   BAFWindow_QueueTimer:SetHidden(true)
 end
 
@@ -398,7 +411,6 @@ function BAF.DailyInfo(Control, Type)
       String = RewardType[6].."\r\n\r\n"..BAFLang_SI.BUTTON_BG_Tooltip
     end
   end
-  --Skuly addition start
   if Type == 4 then
       String = "Role:Tank"
   end
@@ -408,7 +420,6 @@ function BAF.DailyInfo(Control, Type)
   if Type == 6 then
       String = "Role:Damage"
   end
-  --Skuly addition end
   SetTooltipText(InformationTooltip, String)
 end
 
