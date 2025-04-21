@@ -50,12 +50,6 @@ function BAF.ShowWindow()
   SCENE_MANAGER:ToggleTopLevel(BAFTopLevel)
 end
 
-function BAF.WindowHide()
-  if( not BAFTopLevel2:IsControlHidden()) then
-        BAFTopLevel2:SetHidden(true)
-    end
-end
-
 --Try to change the role in LFG
 function BAF.RoleChange(Number)
   if CanUpdateSelectedLFGRole() == false then
@@ -118,23 +112,21 @@ function BAF.LeaveGroup()
 	BAFTopLevel2:SetHidden(true)
 end
 
-function BAF.StatusCheck()
-local isInDungeon = IsUnitInDungeon("player")
-local Status = GetActivityFinderStatus()
-	EVENT_MANAGER:RegisterForUpdate("StatusChecker", 1000,
-		function()
-			local Status = GetActivityFinderStatus()
-			if Status == 3 then
-				if not BAFTopLevel2:IsControlHidden() then
-					if IsUnitGrouped("player") and isInDungeon then
-						BAFWindow_LeaveGroup:SetHidden(false)
-					end
-				end
-			else
-					EVENT_MANAGER:UnregisterForUpdate("StatusChecker")
-			end
+function OpenLeaveGroup()
+
+ EVENT_MANAGER:RegisterForUpdate("OpenLeaveGroupWindow", 1000,
+      function()
+		local isInDungeon = IsUnitInDungeon("player")
+		
+		if isInDungeon and GetGroupSize() > 1 then
+			BAFTopLevel2:SetHidden(false)
+		else
+			EVENT_MANAGER:UnregisterForUpdate("OpenLeaveGroupWindow")
 		end
-		)
+        
+      end
+    )
+	
 end
 
 --Change the text of queue button/Auto confirm/BG Sound
@@ -210,9 +202,8 @@ function BAF.QueueStatus()
 		)
 	end
 	-- ended and still in group
-	if QState == 3 then
-		BAFTopLevel2:SetHidden(false)
-		BAF.StatusCheck()
+	if QState == 3 and BAF.savedVariables.LeaveGroup_Popup then
+		OpenLeaveGroup()
 		return 
 	end 
 

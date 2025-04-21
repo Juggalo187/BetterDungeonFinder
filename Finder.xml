@@ -178,12 +178,6 @@
           <OnInitialized>self:SetText("Leave Group")</OnInitialized>
           <OnClicked> BetterDungonFinder.LeaveGroup() </OnClicked>
         </Button>
-        <Button name ="BAFWindow_Close2" inherits="ZO_CloseButton">
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="5" offsetY="-5"/>
-          <Dimensions x="20" y="20" />
-          <OnClicked> BetterDungonFinder.WindowHide() </OnClicked>
-        </Button>
-
       </Controls>
     </TopLevelControl>
   

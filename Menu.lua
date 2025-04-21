@@ -112,7 +112,7 @@ function BAF.buildMenu()
     {
 			type = "header",
 			name = BAFLang_SI.SETTING_Finder_Header,
-		},
+	},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Finder_Lock,
@@ -122,7 +122,7 @@ function BAF.buildMenu()
         BAF.savedVariables.Window_Lock = value
         BAF.SettingUpdate()
       end,
-		},
+	},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Finder_Pure,
@@ -132,7 +132,7 @@ function BAF.buildMenu()
         BAF.savedVariables.Pure_Black = value
         BAF.SettingUpdate()
       end,
-		},
+	},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Finder_Title,
@@ -141,7 +141,7 @@ function BAF.buildMenu()
 			setFunc = function(value) 
         BAF.savedVariables.Window_Left = value
       end,
-		},
+	},
     {
       type = "slider",
       name = BAFLang_SI.SETTING_Finder_TitleV,
@@ -176,7 +176,7 @@ function BAF.buildMenu()
     {
 			type = "header",
 			name = BAFLang_SI.SETTING_Trigger_Header,
-		},
+	},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Trigger_Lock,
@@ -186,7 +186,7 @@ function BAF.buildMenu()
         BAF.savedVariables.Button_Lock = value
         BAF.SettingUpdate()
       end,
-		},
+	},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Trigger_Hide,
@@ -196,11 +196,11 @@ function BAF.buildMenu()
         BAF.savedVariables.Button_Hide = value
         BAF.SettingUpdate()
       end,
-		},
+	},
     {
 			type = "header",
 			name = BAFLang_SI.SETTING_Other_Header,
-		},
+	},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Other_AutoUDQ,
@@ -209,7 +209,7 @@ function BAF.buildMenu()
 			setFunc = function(value)
         BAF.savedVariables.AutoUDQ = value
       end,
-		},
+	},
     {
       type = "slider",
       name = BAFLang_SI.SETTING_Other_AutoUDQ_Delay,
@@ -220,7 +220,7 @@ function BAF.buildMenu()
       step = 10,
       width = "full",
     },
-    {
+	{
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Other_AutoSwitchQuest,
 			tooltip = BAFLang_SI.SETTING_Other_AutoSwitchQuest_Info,
@@ -228,7 +228,16 @@ function BAF.buildMenu()
 			setFunc = function(value)
         BAF.savedVariables.Auto_Switch = value
       end,
-		},
+	},
+	{
+			type = "checkbox",
+			name = BAFLang_SI.SETTING_Other_LeaveGroupPopup,
+			tooltip = BAFLang_SI.SETTING_Other_LeaveGroupPopup_Info,
+			getFunc = function() return BAF.savedVariables.LeaveGroup_Popup end,
+			setFunc = function(value)
+        BAF.savedVariables.LeaveGroup_Popup = value
+      end,
+	},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Other_DoubleCQTE,
@@ -284,7 +293,7 @@ function BAF.buildMenu()
 			setFunc = function(value)
         BAF.savedVariables.BGSound = value
       end,
-		},
+	},
     {
       type = "slider",
       name = GetString(SI_CUSTOMERSERVICESUBMITFEEDBACKSUBCATEGORIES103),
@@ -307,7 +316,7 @@ function BAF.buildMenu()
     {
 			type = "header",
 			name = BAFLang_SI.SETTING_Sort_Header,
-		},
+	},
     {
 		type = "submenu",
 		name = BAFLang_SI.TITLE_BaseDungeon,

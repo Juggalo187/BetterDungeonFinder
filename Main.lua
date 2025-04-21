@@ -27,6 +27,7 @@ BAF.XML_Default = {
   
   Pure_Black = false,
   Auto_Switch = true,
+  LeaveGroup_Popup = true,
   
   Mark_Chest = true,
   Share_Chest = true,
