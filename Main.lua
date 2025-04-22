@@ -323,5 +323,6 @@ function BAF.UDQCore(scene, _, newstate)
     SelectChatterOption(1)
   end
 end
+
 -- Start Here
 EVENT_MANAGER:RegisterForEvent(BAF.name, EVENT_ADD_ON_LOADED, OnAddOnLoaded)

@@ -185,14 +185,24 @@ function BAF.QueueStatus()
   if QState == 1 then
   EVENT_MANAGER:RegisterForUpdate("BAFUpdateTimer", 1000,
 		function()
-			local SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT = "<<1>>In Queue (<<X:2>>|cffffff<<3>>)|r"
+			local SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT = "<<1>>In Queue <<X:2>> (|cffffff<<3>>)|r"
 			local searchStartTimeMs, searchEstimatedCompletionTimeMs = GetLFGSearchTimes()
 			local timeSinceSearchStartMs = GetFrameTimeMilliseconds() - searchStartTimeMs
 			local textStartTime = ZO_FormatTimeMilliseconds(timeSinceSearchStartMs, 0, 3)
 			local Status = GetActivityFinderStatus()
+			local Roletext
+			
+			if GetSelectedLFGRole() == 1 then
+				Roletext = "as |ceba624DPS|r "
+			elseif GetSelectedLFGRole() == 2 then
+				Roletext = "|c1734b5as Tank|r "
+			elseif GetSelectedLFGRole() == 4 then
+				Roletext = "|c55cb34as Healer|r "
+			end
+			
 			if Status == 1 then
 					BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Cancel)
-					BAFWindow_QueueTimer:SetText(zo_strformat(SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT, "", "", textStartTime))
+					BAFWindow_QueueTimer:SetText(zo_strformat(SI_ACTIVITY_QUEUE_STATUS_LABEL_FORMAT, "", Roletext, textStartTime))
 					BAFWindow_QueueTimer:SetHidden(false)
 				else
 					BAFWindow_QueueTimer:SetHidden(true)
