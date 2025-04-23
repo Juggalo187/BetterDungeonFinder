@@ -195,9 +195,9 @@ function BAF.QueueStatus()
 			if GetSelectedLFGRole() == 1 then
 				Roletext = "as |ceba624DPS|r "
 			elseif GetSelectedLFGRole() == 2 then
-				Roletext = "|c1734b5as Tank|r "
+				Roletext = "as |c1734b5Tank|r "
 			elseif GetSelectedLFGRole() == 4 then
-				Roletext = "|c55cb34as Healer|r "
+				Roletext = "as |c55cb34Healer|r "
 			end
 			
 			if Status == 1 then
