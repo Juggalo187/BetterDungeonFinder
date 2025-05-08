@@ -118,7 +118,7 @@ function OpenLeaveGroup()
       function()
 		local isInDungeon = IsUnitInDungeon("player")
 		
-		if isInDungeon and GetGroupSize() > 1 then
+		if (isInDungeon and GetCurrentZoneDungeonDifficulty() >= 1) and GetGroupSize() > 1 then
 			BAFTopLevel2:SetHidden(false)
 		else
 			EVENT_MANAGER:UnregisterForUpdate("OpenLeaveGroupWindow")
@@ -133,7 +133,6 @@ end
 local CallId = nil
 function BAF.QueueStatus()
   local QState = GetActivityFinderStatus()
-  local isInDungeon = IsUnitInDungeon("player")
   -- Ready check
   if QState == 4 then
     BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Ready)
@@ -211,7 +210,7 @@ function BAF.QueueStatus()
 		end
 		)
 	end
-	-- ended and still in group
+	
 	if QState == 3 and BAF.savedVariables.LeaveGroup_Popup then
 		OpenLeaveGroup()
 		return 
