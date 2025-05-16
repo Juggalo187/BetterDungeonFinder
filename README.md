@@ -1,6 +1,6 @@
 This addon aims to provide a more visually appealing and efficient dungeon finder, addressing some pain points.
 
-Required Libraries: LibAddonMenu-2.0, LibSets
+Required Libraries: [LibAddonMenu-2.0](https://www.esoui.com/downloads/info7-LibAddonMenu-2.0.html), [LibSets](https://www.esoui.com/downloads/info2241-LibSetsAllsetitemsingamepreview.luaAPIexcelsheet.html)
 
 Localization Support: English, Chinese
 
