@@ -40,7 +40,6 @@ function BAF.WindowPosition2()
   _, BAF.savedVariables.Window_Point2, _, BAF.savedVariables.Window_rPoint2, BAF.savedVariables.Window_OffsetX2, BAF.savedVariables.Window_OffsetY2 = BAFTopLevel2:GetAnchor()
 end
 
-
 --Open or close the mainwindow, and triggle controls update
 function BAF.ShowWindow()
   --Update dungeon and windows info
@@ -180,7 +179,6 @@ function BAF.QueueStatus()
     CallId = nil
   end
   -- Queuing
-
   if QState == 1 then
   EVENT_MANAGER:RegisterForUpdate("BAFUpdateTimer", 1000,
 		function()
@@ -211,15 +209,14 @@ function BAF.QueueStatus()
 		)
 	end
 	
+	  -- In progress
+  if QState == 2 then BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Fight) return end 
+	
 	if QState == 3 and BAF.savedVariables.LeaveGroup_Popup then
 		OpenLeaveGroup()
 		return 
-	end 
-
-  -- In progress
-  if QState == 2 then BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Fight) return end 
+	end
   BAFWindow_Queue:SetText(BAFLang_SI.BUTTON_Queue_Status_Queue) -- Other State（OK for queue）
-  
   BAFTopLevel2:SetHidden(true)
   BAFWindow_QueueTimer:SetHidden(true)
 end

@@ -8,12 +8,12 @@ BAF.XML_Default = {
   Window_rPoint = 128,
   Window_OffsetX = 0,
   Window_OffsetY = 0,
-
+  
   Window_Point2 = 128,
   Window_rPoint2 = 128,
   Window_OffsetX2 = 0,
   Window_OffsetY2 = 0,
-
+  
   Window_Lock = false,
   Window_Left = false,
   Window_LeftV = 0,
@@ -30,6 +30,8 @@ BAF.XML_Default = {
   LeaveGroup_Popup = true,
   
   Mark_Chest = true,
+  Icon_Chest = "/esoui/art/icons/quest_strosmkai_open_treasure_chest.dds",
+  Size_Cheset = 128,
   Share_Chest = true,
   
   AutoConfirm = 0,
@@ -235,7 +237,6 @@ function BAF.ControlsInitial()
     BAF.savedVariables.Window_OffsetY2
   )
 	BAFTopLevel2:SetHidden(true)
-  
   --Reset the status of controls
   BAFTopLevel:SetHidden(true)
   BAFTriggle_Button:SetHidden(BAF.savedVariables.Button_Hide)
@@ -323,6 +324,5 @@ function BAF.UDQCore(scene, _, newstate)
     SelectChatterOption(1)
   end
 end
-
 -- Start Here
 EVENT_MANAGER:RegisterForEvent(BAF.name, EVENT_ADD_ON_LOADED, OnAddOnLoaded)

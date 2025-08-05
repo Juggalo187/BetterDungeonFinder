@@ -25,11 +25,11 @@ function BAF.D2C(Control, List)
   local TR = Control:GetNamedChild("_TR")
   local BG = Control:GetNamedChild("_BG")
   --Title
-  Title:SetText(List["Name"])
---if List["IsTodayU"] then Title:SetColor(0.255, 0.412, 1) else Title:SetColor(1, 1, 1) end
+  Title:SetText(List["Name"]:gsub("%^.*", ""))
+  --if List["IsTodayU"] then Title:SetColor(0.255, 0.412, 1) else Title:SetColor(1, 1, 1) end
   local isInDungeon = IsUnitInDungeon("player")
   local ZoneName = ZO_CachedStrFormat("<<C:1>>", GetZoneNameByIndex(GetCurrentMapZoneIndex()))
-  if List["IsTodayU"] and List["Name"] ~= ZoneName then
+   if List["IsTodayU"] and List["Name"] ~= ZoneName then
 	Title:SetColor(0.255, 0.412, 1)
   elseif isInDungeon and List["Name"] == ZoneName then
 	Title:SetColor(0.878, 0.698, 0.039)

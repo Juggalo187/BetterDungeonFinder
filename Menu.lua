@@ -96,6 +96,32 @@ local function DungeonNameSort(IsDLC)
   end
   return Re
 end
+
+local iconList = {
+  "/esoui/art/icons/quest_strosmkai_open_treasure_chest.dds",
+  "/esoui/art/icons/housing_alt_fur_treasurechest001.dds",
+  "/esoui/art/icons/housing_bre_con_treasurechest001.dds",
+  "/esoui/art/icons/rewardbox_imperialcity.dds",
+  "/esoui/art/icons/smalljewelrybox.dds",
+  "/esoui/art/icons/u36_scarabhostbox.dds",
+  "/esoui/art/icons/antiquities_dwarven_puzzle_box_icon.dds",
+  "/esoui/art/icons/delivery_box_001.dds",
+  "/esoui/art/icons/event_jestersfestival_2016_gift_box.dds",
+  "/esoui/art/icons/event_midyear_giftbox.dds",
+  "/esoui/art/icons/gift_box_001.dds",
+  "/esoui/art/icons/gift_box_002.dds",
+  "/esoui/art/icons/gift_box_003.dds",
+  "/esoui/art/icons/gift-box-ouroboros.dds",
+}
+
+local function Icon2Text(Table)
+  local Tep = {}
+  for i = 1, #Table do
+    Tep[i] = "|t32:32:"..Table[i].."|t"
+  end
+  return Tep
+end
+
 ----------------------------
 --Menu
 function BAF.buildMenu()
@@ -112,7 +138,7 @@ function BAF.buildMenu()
     {
 			type = "header",
 			name = BAFLang_SI.SETTING_Finder_Header,
-	},
+		},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Finder_Lock,
@@ -122,7 +148,7 @@ function BAF.buildMenu()
         BAF.savedVariables.Window_Lock = value
         BAF.SettingUpdate()
       end,
-	},
+		},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Finder_Pure,
@@ -132,7 +158,7 @@ function BAF.buildMenu()
         BAF.savedVariables.Pure_Black = value
         BAF.SettingUpdate()
       end,
-	},
+		},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Finder_Title,
@@ -141,7 +167,7 @@ function BAF.buildMenu()
 			setFunc = function(value) 
         BAF.savedVariables.Window_Left = value
       end,
-	},
+		},
     {
       type = "slider",
       name = BAFLang_SI.SETTING_Finder_TitleV,
@@ -176,7 +202,7 @@ function BAF.buildMenu()
     {
 			type = "header",
 			name = BAFLang_SI.SETTING_Trigger_Header,
-	},
+		},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Trigger_Lock,
@@ -186,7 +212,7 @@ function BAF.buildMenu()
         BAF.savedVariables.Button_Lock = value
         BAF.SettingUpdate()
       end,
-	},
+		},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Trigger_Hide,
@@ -196,11 +222,11 @@ function BAF.buildMenu()
         BAF.savedVariables.Button_Hide = value
         BAF.SettingUpdate()
       end,
-	},
+		},
     {
 			type = "header",
 			name = BAFLang_SI.SETTING_Other_Header,
-	},
+		},
     {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Other_AutoUDQ,
@@ -209,7 +235,7 @@ function BAF.buildMenu()
 			setFunc = function(value)
         BAF.savedVariables.AutoUDQ = value
       end,
-	},
+		},
     {
       type = "slider",
       name = BAFLang_SI.SETTING_Other_AutoUDQ_Delay,
@@ -220,7 +246,7 @@ function BAF.buildMenu()
       step = 10,
       width = "full",
     },
-	{
+    {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Other_AutoSwitchQuest,
 			tooltip = BAFLang_SI.SETTING_Other_AutoSwitchQuest_Info,
@@ -228,8 +254,8 @@ function BAF.buildMenu()
 			setFunc = function(value)
         BAF.savedVariables.Auto_Switch = value
       end,
-	},
-	{
+		},
+    {
 			type = "checkbox",
 			name = BAFLang_SI.SETTING_Other_LeaveGroupPopup,
 			tooltip = BAFLang_SI.SETTING_Other_LeaveGroupPopup_Info,
@@ -272,6 +298,29 @@ function BAF.buildMenu()
       end,
     },
     {
+      type = "dropdown",
+			name = GetString(SI_GUILD_RANK_ICONS_DIALOG_HEADER),
+      choices = Icon2Text(iconList),
+      choicesValues = iconList,
+			getFunc = function() return BAF.savedVariables.Icon_Chest end,
+			setFunc = function(value)
+        BAF.savedVariables.Icon_Chest = value
+        BAF.MarkChests()
+      end,
+    },
+    {
+      type = "slider",
+			name = GetString(SI_INTERFACE_OPTIONS_TARGET_MARKER_SIZE),
+			getFunc = function() return BAF.savedVariables.Size_Cheset end,
+			setFunc = function(value)
+        BAF.savedVariables.Size_Cheset = value
+        BAF.MarkChests()
+      end,
+      min = 0,
+      max = 1280,
+      step = 16,
+    },
+    {
       type = "divider",
       alpha = 0.2,
     },
@@ -293,7 +342,7 @@ function BAF.buildMenu()
 			setFunc = function(value)
         BAF.savedVariables.BGSound = value
       end,
-	},
+		},
     {
       type = "slider",
       name = GetString(SI_CUSTOMERSERVICESUBMITFEEDBACKSUBCATEGORIES103),
@@ -316,7 +365,7 @@ function BAF.buildMenu()
     {
 			type = "header",
 			name = BAFLang_SI.SETTING_Sort_Header,
-	},
+		},
     {
 		type = "submenu",
 		name = BAFLang_SI.TITLE_BaseDungeon,
